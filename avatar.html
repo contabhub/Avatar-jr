@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo ao futuro!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Vídeo de fundo */
+        #background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Container do botão inicial */
+        #start-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Botão para abrir o avatar */
+        #open-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            border: none;
+            padding: 20px 30px;
+            font-size: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+            transition: transform 0.2s ease, background 0.3s;
+        }
+
+        #open-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* Container do avatar */
+        #avatar-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.95);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        }
+
+        #avatar-container.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Botão para fechar o avatar */
+        #close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        #close-btn:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        /* Iframe do avatar */
+        iframe {
+            width: 90vw;
+            height: 90vh;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Vídeo de fundo -->
+    <video id="background-video" autoplay loop muted>
+        <source src="https://res.cloudinary.com/dm77wdw32/video/upload/v1739394502/r9k4ftkcorc2yhs4jgvc.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos em HTML5.
+    </video>
+
+    <!-- Container do botão inicial -->
+    <div id="start-container">
+        <button id="open-btn">Interagir com o Avatar</button>
+    </div>
+
+    <!-- Container do Avatar -->
+    <div id="avatar-container">
+        <button id="close-btn">Fechar</button>
+    </div>
+
+    <script>
+        document.getElementById('open-btn').addEventListener('click', function() {
+            document.getElementById('avatar-container').classList.add('show');
+            document.getElementById('start-container').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('start-container').style.display = 'none';
+            }, 500);
+        });
+
+        document.getElementById('close-btn').addEventListener('click', function() {
+            document.getElementById('avatar-container').classList.remove('show');
+            document.getElementById('start-container').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('start-container').style.opacity = '1';
+            }, 100);
+        });
+    </script>
+
+    <script>
+        !function(window){
+            const host="https://labs.heygen.com",
+            url=host+"/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiJjN2Y4YWZjZTI2NjM0OGRlYWUxY2RhNzIxOTZmYWZlYSIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3YzL2M3ZjhhZmNlMjY2MzQ4ZGVhZTFjZGE3MjE5NmZhZmVhL2Z1bGwvMi4yL3ByZXZpZXdfdGFyZ2V0LndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6ImZlZmU2MzhiYzE5MDQ0Yzk5ZDNhMTRjMzczYTk1MDJkIiwidXNlcm5hbWUiOiIwY2RiMDlkNmZjMTM0OTI4YmVhMDk2MmUwZTA5OGMwYiJ9&inIFrame=1",
+            clientWidth=document.body.clientWidth,
+            wrapDiv=document.createElement("div");
+
+            wrapDiv.id="heygen-streaming-embed";
+            const container=document.createElement("div");
+            container.id="heygen-streaming-container";
+
+            const iframe=document.createElement("iframe");
+            iframe.allowFullscreen=!1;
+            iframe.title="Streaming Embed";
+            iframe.role="dialog";
+            iframe.allow="microphone";
+            iframe.src=url;
+
+            container.appendChild(iframe);
+            wrapDiv.appendChild(container);
+            document.getElementById('avatar-container').appendChild(wrapDiv);
+        }(globalThis);
+    </script>
+
+</body>
+</html>
